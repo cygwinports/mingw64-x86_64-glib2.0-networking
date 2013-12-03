@@ -1,0 +1,18 @@
+CROSS_HOST="x86_64-w64-mingw32"
+ORIG_PN="glib-networking"
+inherit cross gnome2
+
+NAME="mingw64-x86_64-glib2.0-networking"
+VERSION=2.36.2
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="GIO networking modules for Win64 toolchain"
+DESCRIPTION="Network-related GIO modules for GLib."
+
+DEPEND="gnome-common
+	pkgconfig(gio-2.0)
+	pkgconfig(gnutls)
+	pkgconfig(gsettings-desktop-schemas)
+	pkgconfig(libproxy-1.0)"
+
+CYGCONF_ARGS="--disable-static --without-ca-certificates"
