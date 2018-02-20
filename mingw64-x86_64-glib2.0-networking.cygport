@@ -3,8 +3,8 @@ ORIG_PN="glib-networking"
 inherit cross gnome2
 
 NAME="mingw64-x86_64-glib2.0-networking"
-VERSION=2.50.0
-RELEASE=2
+VERSION=2.54.1
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="GIO networking modules for Win64 toolchain"
 DESCRIPTION="Network-related GIO modules for GLib."
@@ -16,3 +16,13 @@ DEPEND="gnome-common
 	pkgconfig(libproxy-1.0)"
 
 CYGCONF_ARGS="--disable-static --without-ca-certificates"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	dodir /etc/postinstall
+	cat > ${D}/etc/postinstall/${NAME}.sh <<_EOF
+${CROSS_BINDIR}/gio-querymodules \$(cygpath -m ${CROSS_LIBDIR}/gio/modules)
+_EOF
+}
